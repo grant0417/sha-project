@@ -1,0 +1,100 @@
+\documentclass{IEEEtran}
+
+\usepackage[T1]{fontenc} \usepackage[utf8]{inputenc}
+
+\pdfminorversion=7
+
+% Additional Math Support
+\usepackage{amsmath, amssymb, amsthm}
+% Inserting Graphics
+\usepackage{graphicx}
+% Better Tables
+\usepackage{booktabs}
+% Inserting URLs
+\usepackage{url}
+% Makes paragraphs distinct from skips
+\usepackage{parskip}
+% Hide page number when page is empty
+\usepackage{emptypage}
+
+\usepackage[bookmarks]{hyperref}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\input{risc-v.tex}
+
+\title{RISC V Implementation of SHA-3} \author{Grant Gurvis}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract} This is the abstract \end{abstract}
+
+\section{Introduction}
+
+Cryptographic hash functions are a fundamental primitive in modern cryptography,
+they allow mapping of messages to a digest with no know way to reverse other
+than brute-force search. Among the most famous hash functions are the Secure
+Hash Algorithms (SHA) family of hash functions, the most recent standard being
+the SHA-3 algorithm. SHA-3 is amoung the most secure hash functions 
+
+\section{Background of Algorithm} The SHA family of algorithms has been the
+standard hash functions used in most cryptographic applications since they were
+standardized. SHA-1 and SHA-2 are both based on the Merkle–Damgård construction,
+which is also used by other hash functions such as MD5. SHA-1 has been shown to
+no longer be secure several time, in 2015 practical attacks were shown to be
+possible,\cite{fischlin_freestart_2016} in 2017 an actual collision was
+found,\cite{stevens_first_2017} and in 2019 chosen-prefix attacks were shown to
+be practical.\cite{ishai_collisions_2019} Since the attacks on SHA-1, many
+systems have migrated to SHA-2, such as TLS and Git. SHA-2 is currently used in
+wide use but some holes in its security have been shown since it uses similar
+underlying mathematics as SHA-1. For example all Merkle–Damgård construction are
+susceptible to length extension attacks and collision attacks on SHA-2 are an
+active field of research where attacks aren't practical, but have been getting
+closer. This is not of immediate concern but a transition to SHA-3 would help
+mitigate potential weaknesses of SHA-2 that are found in the future.
+
+SHA-3 is based on the Keccak algorithm which was designed by Guido Bertoni, Joan
+Daemen,  Michael Peeters, and Gilles Van Assche. It is the first SHA to not be
+designed by the National Security Agency (NSA) which has led to some increased
+confidence in its security since the NSA has potentially previously created
+compromised algorithms.\cite{perlroth_government_2013} The algorithm was chosen
+to be the third SHA after it was chosen in a 2012 public competition run by the
+National Institute of Standards and Technologies (NIST) who maintain many
+cryptographic and technological standards (including SHA). SHA-3 is known to be
+slower in software implementations than previous SHAs but it is much faster when
+implemented via hardware accelerators. 
+
+The current standard for SHA-3 was published in 2015.\cite{dworkin_sha-3_2015}
+
+\section{Code Details}
+
+This implement
+
+\section{Conclusion}
+
+\bibliographystyle{IEEEtran} \bibliography{project}
+
+\section*{Appendix}
+
+Hello there
+
+
+\begin{center}
+\begin{lstlisting}
+myfunc:
+    addi    sp, sp, -8
+    sd      ra, 0(sp)
+    la      a0, prompt
+    mv      a1, t0
+    mv      a2, t1
+    call    printf
+    ld      ra, 0(sp)
+    addi    sp, sp, 8
+    ret
+\end{lstlisting}
+\end{center}
+
+\end{document}
+
